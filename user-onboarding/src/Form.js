@@ -55,17 +55,21 @@ export default function Form (){
     const formSubmit = e =>{
         e.preventDefault();
         console.log("form submitted!");
-        axios.post("https://regres.in/api/users", formState)
+        axios.post("https://reqres.in/api/users", formState)
             .then(response=>console.log(response))
             .catch(err=> console.log(err));
     };
 
     return (
         <div>
-        <form onSubmit={formSubmit}>
+        <form onSubmit={formSubmit}
+        >
             <label htmlFor="name">Name:
             <input id="name" type="text" name="name" placeholder="Please enter name" value={formState.name}
                 onChange={changeHandler} />
+                {errorState.name.length>0?(
+                <p className="error">{errorState.name}</p>
+            ) :null}
              </label>
 
             <label htmlFor="email">Email:
@@ -78,13 +82,20 @@ export default function Form (){
             <label htmlFor="password">Password:
             <input id="password" type="text" name="password" placeholder="Please enter password" value={formState.password}
                 onChange={changeHandler} />
+                {errorState.password.length>0?(
+                <p className="error">{errorState.password}</p>
+            ) :null}
             </label>
 
             <label htmlFor="terms">Terms of Service
             <input id="terms" type="checkbox" checked={formState.terms} onChange={changeHandler} />
+            {errorState.terms.length>0?(
+                <p className = "error">{errorState.terms}</p>
+            ): null}
             </label>
             <button type="submit">Submit</button>
         </form>
+        {console.log(formState)}
        </div>
     )
 
